@@ -1,0 +1,51 @@
+<%- include('../partials/html-head') %>
+<%- include('../partials/nav') %>
+
+<h1>Flight</h1>
+  <% if(error) { %>
+    <h2><%= error %></h2>
+  <% } else { %>
+    <h2>Flight #<%= flight._id %></h2>
+    <h3><%= flight.airline %></h3>
+    <p><%= flight.airport  %></p>
+  <% } %>
+	<a href="/flights">Go back</a>
+  <br>
+
+  <label>Add Ticket</label>
+  <form 
+  id="add-ticket-form"
+  action="/flights/<%= flight._id %>/tickets"
+  method="POST"
+>
+  <label for="content-textarea">Seat:</label>
+  <input name="seat" placeholder="A1-F99 " required pattern="[A-F][1-9]\d?">
+  <label for="ticket.price">Price:</label>
+  <input type="text" name="price" placeholder="$0" id="price-input" required>
+  <button type="submit">Add Ticket</button>
+</form>
+
+<% if (flight.tickets) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>Seat</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% flight.tickets.forEach(function(ticket) { %>
+        <tr>
+          <td><%= ticket.seat %></td>
+          <td><%= ticket.price %></td>
+        </tr>
+      <% }) %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<% } else { %>
+  <h3>No tickets Yet</h3>
+<% } %>
+
+<%- include('../partials/footer') %>
