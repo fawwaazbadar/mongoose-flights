@@ -5,13 +5,14 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
-import ('./config/database.js')
+import methodOverride from "method-override"
+import('./config/database.js')
+
 
 // import routers
 import { router as indexRouter } from './routes/index.js'
 import { router as flightsRouter } from './routes/flights.js'
 import { router as destinationsRouter } from './routes/destinations.js'
-
 // set up app
 const app = express()
 
@@ -32,6 +33,7 @@ app.use(
     path.join(path.dirname(fileURLToPath(import.meta.url)), 'public')
   )
 )
+app.use(methodOverride("_method"))
 
 // mounted routers
 app.use('/', indexRouter)

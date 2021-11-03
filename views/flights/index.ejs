@@ -1,5 +1,6 @@
 <%- include('../partials/html-head') %>
-
+<link rel="stylesheet" href="/stylesheets/flights/index.css" />
+<link rel="stylesheet" href="/stylesheets/flights/new.css" />
 <%- include('../partials/nav') %>
 
 <main>
@@ -7,23 +8,24 @@
   <table>
     <thead>
       <tr>
-        <th>Airline</th>
-        <th>Airport</th>
-        <th>FlightNo</th>
-        <th>Departs</th>
+        <th>Airline:</th>
+        <th>Airport:</th>
+        <th>Flight No.:</th>
+        <th>Departure:</th>
       </tr>
     </thead>
     <tbody>
-      <% flights.forEach((flight) => { %>
+      <% flights.forEach(function(f) { %>
       <tr>
-        <td><%= flight.airline %></td>
-        <td><%= flight.airport %></td>
-        <td><%= flight.flightNo %></td>
-        <td><%= flight.departs %></td>
+        <td><%= f.airline %></td>
+        <td><%= f.airport %></td>
+        <td><%= f.flightNo %></td>
+        <td><%= f.departs %></td>
+        <td><a href="/flights/<%= f._id %> ">Details</a></td>
         <td>
-          <a href="/flights/<%= flight._id %>">DETAILS</a>
-        </td>
-        <td>
+          <form action="/flights/<%= f._id %>?_method=DELETE" method="POST">
+            <button type="submit">X</button>
+          </form>
         </td>
       </tr>
       <% }) %>
